@@ -11,7 +11,7 @@ on:
 env:
   AWS_REGION: us-east-1  # Ajuste conforme necessário
   ECR_REPOSITORY: cadastro
-  ECS_CLUSTER: tech-grp14-cluster
+  ECS_CLUSTER: tech_grp14_cluster
   ECS_SERVICE: cadastro-service
   ECS_TASK_DEFINITION: cadastro-task-def.json
 
@@ -63,7 +63,7 @@ jobs:
           path: target/site/jacoco
 
   build-and-push:
-    name: Deploy na AWS
+    name: Push da imagem para o ECR
     runs-on: ubuntu-latest
     needs:
       - build
