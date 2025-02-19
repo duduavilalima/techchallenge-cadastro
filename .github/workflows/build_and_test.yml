@@ -31,7 +31,7 @@ jobs:
     needs: build
     steps:       
       - name: Build and test with Maven
-        run: mvn clean verify -Pprod
+        run: mvn clean verify
 
       - name: Report Test Coverage
         run: |
