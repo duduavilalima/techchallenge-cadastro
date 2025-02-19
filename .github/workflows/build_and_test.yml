@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
+    steps:  # <- Aqui estava o erro de indentação
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -23,15 +23,10 @@ jobs:
           java-version: '17'
 
       - name: Build application
-        run: mvn package -Pprod
-        
-  testes:
-    name: Cobertura de testes
-    runs-on: ubuntu-latest
-    needs: build
-    steps:       
+        run: mvn package
+
       - name: Build and test with Maven
-        run: mvn clean verify -Pprod
+        run: mvn clean verify
 
       - name: Report Test Coverage
         run: |
@@ -55,13 +50,12 @@ jobs:
         with:
           name: coverage-report
           path: target/site/jacoco
-          
+
   deploy:
     name: Deploy na AWS
     runs-on: ubuntu-latest
     needs:
       - build
-      - testes
     if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || (github.event_name == 'workflow_dispatch')
     steps:
       - name: Checkout code
@@ -91,4 +85,4 @@ jobs:
           aws ecs update-service \
             --cluster tech-grp14-cluster \
             --service cadastro-service \
-            --force-new-deployment    
+            --force-new-deployment              
