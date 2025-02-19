@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
+    steps:  # <- Aqui estava o erro de indentação
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -23,7 +23,7 @@ jobs:
           java-version: '17'
 
       - name: Build application
-        run: mvn package -Pprod
+        run: mvn package
 
       - name: Build and test with Maven
         run: mvn clean verify
@@ -50,7 +50,7 @@ jobs:
         with:
           name: coverage-report
           path: target/site/jacoco
-          
+
   deploy:
     name: Deploy na AWS
     runs-on: ubuntu-latest
@@ -86,4 +86,4 @@ jobs:
           aws ecs update-service \
             --cluster tech-grp14-cluster \
             --service cadastro-service \
-            --force-new-deployment    
+            --force-new-deployment              
